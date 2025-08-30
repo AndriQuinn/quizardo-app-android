@@ -3,11 +3,13 @@ package com.quinn.quizardo.ui.components
 import androidx.compose.foundation.Image
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -19,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.quinn.quizardo.R
 
@@ -75,12 +78,46 @@ fun Logo(modifier: Modifier = Modifier) {
         Image (
             painter = painterResource(R.drawable.witch),
             contentDescription = "wizard hat",
-            modifier = Modifier.size(40.dp)
+            modifier = Modifier.size(50.dp)
         )
-        Spacer(Modifier.width(5.dp))
+        Spacer(Modifier.width(3.dp))
         Text (
             text = "Quizardo",
-            color = Color.White
+            color = Color(0xFF8154EF),
+            fontWeight = FontWeight.Bold
         )
+    }
+}
+
+@Composable
+fun Header(
+    leftColumn: List<@Composable () -> Unit>,
+    rightColumn: List<@Composable () -> Unit>,
+    modifier: Modifier = Modifier
+) {
+    Row (
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        // Left column
+        Column (
+            modifier = Modifier.weight(1f)
+        ) {
+            leftColumn.forEach { composable ->
+                composable()
+                Spacer(Modifier.height(5.dp))
+            }
+
+        }
+        // Right column
+        Column (
+            horizontalAlignment = Alignment.End,
+            modifier = Modifier.weight(1f)
+        ) {
+            rightColumn.forEach { composable ->
+                composable()
+                Spacer(Modifier.height(5.dp))
+            }
+        }
     }
 }

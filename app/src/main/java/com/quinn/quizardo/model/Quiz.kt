@@ -8,6 +8,7 @@ data class Quiz(
     val subject: String,
 ) {
     val listOfQuestions = mutableListOf<QuizQuestion>()
+    val score: Int = 0
 
     fun addQuestion(question: QuizQuestion) {
         listOfQuestions.add(question)
