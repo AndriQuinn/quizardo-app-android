@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults.buttonColors
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,22 +25,24 @@ import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.quinn.quizardo.R
 
 @Composable
 fun NavBar(
     modifier: Modifier = Modifier,
-    leftBanner: @Composable () -> Unit,
-    leftBannerToggle: Boolean,
+    leftBanner: @Composable () -> Unit = @Composable {},
+    leftBannerToggle: Boolean = false,
     leftBannerFunction: () -> Unit = {},
-    rightBannerToggle: Boolean,
-    rightBanner: @Composable () -> Unit,
+    rightBannerToggle: Boolean = false,
+    rightBanner: @Composable () -> Unit = @Composable {},
     rightBannerFunction: () -> Unit = {},
 ){
     Row (
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .height(56.dp)
 
     ) {
@@ -84,15 +88,16 @@ fun Logo(modifier: Modifier = Modifier) {
         Text (
             text = "Quizardo",
             color = Color(0xFF8154EF),
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            fontSize = 25.sp
         )
     }
 }
 
 @Composable
 fun Header(
-    leftColumn: List<@Composable () -> Unit>,
-    rightColumn: List<@Composable () -> Unit>,
+    leftColumn: List<@Composable () -> Unit> = emptyList<@Composable () -> Unit>(),
+    rightColumn: List<@Composable () -> Unit> = emptyList<@Composable () -> Unit>(),
     modifier: Modifier = Modifier
 ) {
     Row (
@@ -120,4 +125,39 @@ fun Header(
             }
         }
     }
+}
+
+@Composable
+fun TextFieldLabeled(
+    label: String,
+    checkField: Boolean = false,
+    inputValue: String,
+    onValueChanged: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = label,
+        color = Color(0xFF8154EF),
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 25.sp
+    )
+    Spacer(Modifier.height(10.dp))
+    TextField(
+        value = inputValue,
+        onValueChange = {onValueChanged(it)}, // Return the value to parent
+        label = {Text(label)},
+        singleLine = true,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            unfocusedTextColor = Color.White,
+            focusedTextColor = Color.White
+        ),
+        isError = if (checkField) {
+            inputValue.isBlank()
+        } else {false},
+        modifier = modifier
+            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+    )
 }

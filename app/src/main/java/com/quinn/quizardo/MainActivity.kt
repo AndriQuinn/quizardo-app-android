@@ -19,6 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.quinn.quizardo.ui.screens.CreateQuizScreen
 import com.quinn.quizardo.ui.screens.home.HomeScreen
 import com.quinn.quizardo.ui.theme.QuizardoTheme
 
@@ -63,7 +64,8 @@ fun QuizardoApp(modifier: Modifier = Modifier) {
         },
         modifier = Modifier.background(Color(0xFF1E1E1E))
     ) {
-        composable("home") {HomeScreen(navController = navController)}
+        composable("home") { HomeScreen(navController = navController) }
+        composable("createQuiz") { CreateQuizScreen(navController = navController) }
     }
 }
 

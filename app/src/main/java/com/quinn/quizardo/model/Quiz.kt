@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class Quiz(
     val title: String,
     val subject: String,
+    val id: String
 ) {
     val listOfQuestions = mutableListOf<QuizQuestion>()
     val score: Int = 0

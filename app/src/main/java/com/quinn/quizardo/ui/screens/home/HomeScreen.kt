@@ -64,7 +64,8 @@ fun HomeScreen(
                         fontWeight = FontWeight.Bold
                     )
                 },
-                rightBannerToggle = true
+                rightBannerToggle = true,
+                rightBannerFunction = { navController.navigate("createQuiz") }
             )
         }
     ) { innerPadding ->
