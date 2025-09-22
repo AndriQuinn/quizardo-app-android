@@ -37,6 +37,7 @@ import com.quinn.quizardo.data.model.Quiz
 import com.quinn.quizardo.ui.components.Header
 import com.quinn.quizardo.ui.components.Logo
 import com.quinn.quizardo.ui.components.NavBar
+import com.quinn.quizardo.ui.theme.MyTheme
 import com.quinn.quizardo.ui.theme.QuizardoTheme
 
 
@@ -59,7 +60,7 @@ fun HomeScreen(
                 leftBannerToggle = false,
                 rightBanner = {
                     Text(
-                        text = "Create",
+                        text = "New",
                         color = Color(0xFF8154EF),
                         fontWeight = FontWeight.Bold
                     )
@@ -99,15 +100,14 @@ fun HomeScreenBody(
                         { Text(
                             text = "Quizzes",
                             color = Color(0xFF8154EF),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 32.sp
+                            style = MyTheme.header1
                         ) },
                     ),
                     rightColumn = listOf<@Composable () -> Unit>(
                         { Text(
                             text = "${quizzes.size}",
                             color = Color(0xFF8154EF),
-                            fontWeight = FontWeight.SemiBold,
+                            style = MyTheme.header3
                         ) },
                     )
                 )

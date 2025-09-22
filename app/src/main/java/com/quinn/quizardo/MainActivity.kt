@@ -19,9 +19,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.quinn.quizardo.data.model.Quiz
+import com.quinn.quizardo.ui.screens.AnswerQuizScreen
 import com.quinn.quizardo.ui.screens.CreateQuizScreen
+import com.quinn.quizardo.ui.screens.QuizInfoScreen
 import com.quinn.quizardo.ui.screens.home.HomeScreen
 import com.quinn.quizardo.ui.theme.QuizardoTheme
+import kotlinx.serialization.json.Json
 
 
 class MainActivity : ComponentActivity() {
@@ -66,6 +70,20 @@ fun QuizardoApp(modifier: Modifier = Modifier) {
     ) {
         composable("home") { HomeScreen(navController = navController) }
         composable("createQuiz") { CreateQuizScreen(navController = navController) }
+        composable(
+            route = "quizInfo/{quizNode}",
+            arguments = listOf(navArgument("quizNode") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val quizUri = backStackEntry?.arguments?.getString("quizNode")
+            val quizUriDecoded = Uri.decode(quizUri.toString())
+            val quizNode = Json.decodeFromString<Quiz>(quizUriDecoded)
+
+            QuizInfoScreen(
+                quizNode = quizNode,
+                navController = navController
+            )
+        }
+        composable("answerQuiz") { AnswerQuizScreen(navController = navController) }
     }
 }
 

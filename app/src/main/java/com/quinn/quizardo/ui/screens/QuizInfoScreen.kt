@@ -11,11 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import com.quinn.quizardo.data.model.Quiz
 import com.quinn.quizardo.ui.components.Logo
 import com.quinn.quizardo.ui.components.NavBar
 
 @Composable
 fun QuizInfoScreen(
+    quizNode: Quiz,
     navController: NavController,
     modifier: Modifier = Modifier
 ) {

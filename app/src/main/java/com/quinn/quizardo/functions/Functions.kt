@@ -2,11 +2,12 @@ package com.quinn.quizardo.functions
 
 import android.content.Context
 import com.quinn.quizardo.data.model.Quiz
+import kotlinx.serialization.json.Json
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 
-fun addQuizFile(context: Context, title: String, subject: String) {
+fun addQuizFile(context: Context, title: String, subject: String): Quiz {
 
     val filePath = File(context.filesDir,"quiz-list.json") // Get the file path
 
@@ -28,6 +29,7 @@ fun addQuizFile(context: Context, title: String, subject: String) {
     fileContent.put(quizObject) // put the task object to the json array
     fileContent.getJSONObject(0).put("length","$length") // Update the length on the file
     filePath.writeText(fileContent.toString()) // rewrite the file with the updated one
+    return Json.decodeFromString<Quiz>(quizObject.toString())
 }
 
 fun getTotal(list: List<Quiz>): Int {

@@ -1,5 +1,6 @@
 package com.quinn.quizardo.ui.screens
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,6 +40,10 @@ import com.quinn.quizardo.ui.components.Logo
 import com.quinn.quizardo.ui.components.NavBar
 import com.quinn.quizardo.ui.components.TextFieldLabeled
 import com.quinn.quizardo.R
+import com.quinn.quizardo.ui.theme.MyTheme
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+
 
 @Composable
 fun CreateQuizScreen(
@@ -57,10 +62,10 @@ fun CreateQuizScreen(
         topBar = {
             NavBar(
                 leftBanner = {
-                    Image (
-                        painter = painterResource(R.drawable.back_icon),
+                    Image(
+                        painter = painterResource(R.drawable.left_arrow),
                         contentDescription = "back icon",
-                        modifier = Modifier.size(16.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 },
                 leftBannerToggle = true,
@@ -81,14 +86,19 @@ fun CreateQuizScreen(
             createQuiz = {
                 checkFields = true
                 if (title.isNotBlank() && subject.isNotBlank()) {
-                    addQuizFile(
+                    val quizNode = addQuizFile(
                         context = context,
                         title = title,
                         subject = subject
                     )
+
+
+                    navController.navigate("quizInfo/${Uri.encode(Json.encodeToString(quizNode))}")
+
                 }
             },
-            modifier = Modifier.padding(innerPadding))
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 }
 
@@ -112,9 +122,8 @@ fun CreateQuizBody(
             leftColumn = listOf(
                 { Text(
                     text = "New Quiz",
-                    color = Color(0xFF8154EF),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 32.sp
+                    color = Color(0xFF4B4453),
+                    style = MyTheme.header1
                 ) }
             )
         )

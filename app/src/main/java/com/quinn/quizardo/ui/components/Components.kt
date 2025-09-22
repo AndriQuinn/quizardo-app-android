@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quinn.quizardo.R
+import com.quinn.quizardo.ui.theme.MyTheme
 
 @Composable
 fun NavBar(
@@ -137,9 +138,8 @@ fun TextFieldLabeled(
 ) {
     Text(
         text = label,
-        color = Color(0xFF8154EF),
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 25.sp
+        color = Color(0xFF4B4453),
+        style = MyTheme.header3
     )
     Spacer(Modifier.height(10.dp))
     TextField(
